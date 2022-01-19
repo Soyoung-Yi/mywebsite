@@ -3,6 +3,18 @@ from bs4 import BeautifulSoup
 from .models import Post
 from django.utils import timezone
 from django.contrib.auth.models import User
+
+
+def create_post(title, content, author):
+    blog_post =  Post.objects.create(
+        title = title,
+        content = content,
+        created=timezone.now(),
+        author = author
+    )
+    return blog_post
+
+
 class TestView(TestCase):
     def setUp(self):
         self.client = Client()
@@ -23,12 +35,7 @@ class TestView(TestCase):
         print(Post.objects.count(),'개입니다')
         self.assertIn('아직 게시물이 없습니다', soup.body.text)
         user = User.objects.create(username='admin', password='123')
-        post = Post.objects.create(
-            title='TEST_title',
-            content = '본문',
-            created = timezone.now(),
-            author =user
-        )
+        post = create_post('TEST_title','본문',user)
         # 0보다 크다
         self.assertGreater(Post.objects.count(), 0)
         print('이젠', Post.objects.count(), '개입니다')
@@ -41,5 +48,15 @@ class TestView(TestCase):
         self.assertIn(post.title, body.text)
 
     def test_post_detail(self):
-        self.assertEqual(Post.objects.count(), 0)
+        user = User.objects.create(username='admin', password='123')
+        post = create_post('TEST_title','본문',user)
+        self.assertGreater(Post.objects.count(), 0)
+        post_url = post.get_absolute_url()
+        self.assertEqual(post_url, '/blog/{}/'.format(post.pk))
 
+        response = self.client.get(post_url)
+        self.assertEqual(response.status_code,200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        title = soup.title
+
+        self.assertEqual(title.text, "{} 상세보기".format(post.title))
