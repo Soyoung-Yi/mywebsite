@@ -124,3 +124,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# img 태그에서 이미지 url을 가져와야
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
+MEDIA_URL = '/media/'

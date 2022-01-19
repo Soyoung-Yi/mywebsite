@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BLOG</title>
+    {% load static %}
+</head>
+<body>
+    <h1>BLOG INDEX</h1>
+    {% for post in posts%}
+        <h3>{{post.title}}</h3>
+        <h5>{{post.created}} by {{post.author}}</h5>
+        <p>{{post.content | truncatewords:10 }}</p>
+        {% if post.head_image %}
+            <img src="{{post.head_image.url}}" width="100">
+        {% else %}
+            <img src="{% static 'blog/img/noImg.png' %}" width="100">
+        {% endif %}
+        <hr>
+    {% endfor%}
+</body>
+</html>

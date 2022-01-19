@@ -5,8 +5,12 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     title = models.CharField(max_length=30)
     content = models.TextField()
-    created = models.DateTimeField()
+    head_image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True)
+    created = models.DateTimeField(blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "{}:{}".format(self.title, self.author)
+        return "{}::{}-{}".format(self.title, self.author,self.created)
+
+    class Meta:
+        ordering = ['-created']
