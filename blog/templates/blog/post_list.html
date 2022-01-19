@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>BLOG INDEX</h1>
-    {% for post in posts%}
+    {% comment %} {% for post in post_list %}{% endcomment %}
+    {% for post in object_list %}
         <h3>{{post.title}}</h3>
         <h5>{{post.created}} by {{post.author}}</h5>
         {% if post.head_image %}
