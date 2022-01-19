@@ -6,8 +6,6 @@
     {% load static %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'blog/css/bootstrap.css'%}">
-    <link rel="stylesheet" href="https://bootswatch.com/_vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://bootswatch.com/_vendor/prismjs/themes/prism-okaidia.css">
     <link rel="stylesheet" href="{% static 'blog/css/custom.min.css'%}">
     <!-- Global Site Tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23019901-1"></script>
@@ -66,8 +64,8 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-            <h1 class="my-4">Page Heading
-                <small>Secondary Text</small>
+            <h1 class="my-4">BLOG
+                <small>LIST</small>
             </h1>
             <!-- Blog Post -->
             {% for post in object_list %}
@@ -75,7 +73,8 @@
                 {% if post.head_image %}
                 <img src="{{post.head_image.url}}" height="300">
                 {% else %}
-                <img src="{% static 'blog/img/noImg.png' %}" height="300">
+<!--                <img src="{% static 'blog/img/noImg.png' %}" height="300">-->
+                <img src="https://picsum.photos/750/300/?random">
                 {% endif %}
                 <div class="card-body">
                     <h2 class="card-title">{{post.title}}</h2>
