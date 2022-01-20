@@ -2,7 +2,18 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=25, unique=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return '{}::{}'.format(self.name, self.description)
+
+
 class Post(models.Model):
+    category = models.ForeignKey(Category, blank=True, null=True,
+                                 on_delete=models.SET_NULL)
     title = models.CharField(max_length=30)
     content = models.TextField()
     head_image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True)

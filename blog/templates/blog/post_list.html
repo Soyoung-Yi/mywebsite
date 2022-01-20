@@ -5,7 +5,7 @@
         <small>LIST</small>
     </h1>
     <!-- Blog Post -->
-    {% for post in object_list %}
+    {% for post in post_list %}
     <div class="card mb-4">
         {% if post.head_image %}
         <img src="{{post.head_image.url}}" height="300">
@@ -14,6 +14,12 @@
         <img src="https://picsum.photos/750/300/?random">
         {% endif %}
         <div class="card-body">
+            {% if post.category %}
+            <h6>카테고리 <span class="badge bg-secondary">{{post.category.name}}</span></h6>
+            <span class="badge rounded-pill bg-success float-end">{{post.category.name}}</span>
+            {% else %}
+            <span class="badge rounded-pill bg-success float-end">미분류</span>
+            {% endif %}
             <h2 class="card-title">{{post.title}}</h2>
             <p class="card-text">{{post.content | truncatewords:10 }}</p>
             <a href="{% url 'blog:detail' post.pk %}" class="btn btn-primary">Read More &rarr;</a>
@@ -24,6 +30,6 @@
         </div>
     </div>
     {% empty %}
-        <h2>아직 게시물이 없습니다</h2>
+        <h2>해당 게시물이 없습니다</h2>
     {% endfor%}
 {% endblock %}
