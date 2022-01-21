@@ -9,13 +9,13 @@ def category(request):
     category_left = []
     category_right = []
     half = math.trunc(Category.objects.count()/2)
-    print('half값은 {}'.format(half))
+    # print('half값은 {}'.format(half))
     for i in range(half):
-        print('좌측 단계 i값은 {}'.format(i))
+        # print('좌측 단계 i값은 {}'.format(i))
         category_left.append(category_all_list[i])
         category_left[i].cnt = Post.objects.filter(category=category_all_list[i]).count()
     for i in range(half, cnt):
-        print('우측 단계 i값은 {}'.format(i))
+        # print('우측 단계 i값은 {}'.format(i))
         category_right.append(category_all_list[i])
         category_right[i-half].cnt = Post.objects.filter(category=category_all_list[i]).count()
     return {

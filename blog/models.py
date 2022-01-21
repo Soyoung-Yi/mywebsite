@@ -3,12 +3,23 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=40, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Category(models.Model):
     name = models.CharField(max_length=25, unique=True)
     description = models.TextField(blank=True)
+    slug = models.SlugField(unique=True, allow_unicode=True)
 
     def __str__(self):
         return '{}::{}'.format(self.name, self.description)
+
+    class Meta:
+        verbose_name_plural = 'categories'
 
 
 class Post(models.Model):
@@ -19,7 +30,7 @@ class Post(models.Model):
     head_image = models.ImageField(upload_to='blog/%Y/%m/%d/', blank=True)
     created = models.DateTimeField(blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    tags = models.ManyToManyField(Tag, null=True, blank=True)
     def __str__(self):
         return "{}::{}-{}".format(self.title, self.author,self.created)
 

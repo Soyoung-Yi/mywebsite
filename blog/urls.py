@@ -9,4 +9,6 @@ urlpatterns = [
     # path('', ListView.as_view(model=Post)),
     path('<int:pk>/', views.PostDetail.as_view(), name='detail'),
     path('search/<category_name>/', views.searchList, name='search'),
+    path('category/<str:slug>/', views.PostListByCategory.as_view(), name='category'),
+    path('tag/<str:tag_name>', views.PostListByTag.as_view(), name='tag'),
 ]
